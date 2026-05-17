@@ -2,25 +2,49 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #193764;
+  --muted: #5f6f83;
+  --surface: #ffffff;
+  --surface-2: #fff7e8;
+  --border: rgba(25, 55, 100, 0.12);
+  --brand: #faa426;
+  --brand-2: #193764;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-ui);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #10213d;
+    --foreground: #fff7e8;
+    --muted: rgba(255, 247, 232, 0.72);
+    --surface: rgba(255, 255, 255, 0.07);
+    --surface-2: rgba(250, 164, 38, 0.1);
+    --border: rgba(250, 164, 38, 0.18);
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    var(--font-sans),
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    "Apple Color Emoji",
+    "Segoe UI Emoji";
+}
+
+html {
+  scroll-behavior: smooth;
 }
