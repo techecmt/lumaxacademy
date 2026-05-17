@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "motion/react";
+import BlurText from "../_components/BlurText";
 import SiteFooter from "../_components/SiteFooter";
 import SiteHeader from "../_components/SiteHeader";
 import type { IconType } from "react-icons";
@@ -207,10 +211,15 @@ export default function AboutPage() {
                   Singapore-based skill development institute
                 </div>
 
-                <h1 className="mt-5 max-w-3xl text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl lg:text-[62px] lg:leading-[1.03]">
+                <motion.h1
+                  initial={{ filter: "blur(12px)", opacity: 0, y: -24 }}
+                  animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+                  transition={{ duration: 0.75, ease: "easeOut", delay: 0.1 }}
+                  className="mt-5 max-w-3xl text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl lg:text-[62px] lg:leading-[1.03]"
+                >
                   Future-ready education for{" "}
                   <span className="text-(--brand)">career success</span>
-                </h1>
+                </motion.h1>
                 <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
                   Founded in 2026, Lumax Academy is a progressive educational
                   institute in Singapore delivering industry-relevant skill
@@ -299,9 +308,14 @@ export default function AboutPage() {
                 <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
                   ABOUT LUMAX ACADEMY
                 </div>
-                <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
-                  Practical education for modern industries
-                </h2>
+                <BlurText
+                  as="h2"
+                  text="Practical education for modern industries"
+                  delay={110}
+                  animateBy="words"
+                  direction="top"
+                  className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl"
+                />
                 <p className="mt-4 text-base leading-relaxed text-slate-600">
                   Lumax Academy specializes in Certificate and Diploma level
                   programmes across high-demand sectors, equipping learners with
@@ -395,9 +409,14 @@ export default function AboutPage() {
               <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
                 CORE VALUES
               </div>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
-                L.U.M.A.X values that guide every learner journey
-              </h2>
+              <BlurText
+                as="h2"
+                text="L.U.M.A.X values that guide every learner journey"
+                delay={110}
+                animateBy="words"
+                direction="top"
+                className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl"
+              />
               <p className="mt-4 text-base leading-relaxed text-slate-600">
                 Our values shape the way we teach, support learners, and build
                 pathways toward personal and professional growth.
@@ -453,9 +472,14 @@ export default function AboutPage() {
               <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
                 ORGANIZATIONAL CULTURE
               </div>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
-                A culture of continuous learning, leadership, and achievement
-              </h2>
+              <BlurText
+                as="h2"
+                text="A culture of continuous learning, leadership, and achievement"
+                delay={110}
+                animateBy="words"
+                direction="top"
+                className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl"
+              />
               <p className="mt-4 text-base leading-relaxed text-slate-600">
                 At Lumax Academy, hands-on education, innovation, and
                 industry-focused training inspire every learner to grow with
@@ -490,9 +514,14 @@ export default function AboutPage() {
               <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
                 PROGRAMME AREAS
               </div>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
-                High-demand sectors with practical learning pathways
-              </h2>
+              <BlurText
+                as="h2"
+                text="High-demand sectors with practical learning pathways"
+                delay={110}
+                animateBy="words"
+                direction="top"
+                className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl"
+              />
               <p className="mt-4 text-base leading-relaxed text-slate-600">
                 Certificate and Diploma level programmes are organized around
                 industry needs, workplace expectations, and skills learners can
@@ -537,9 +566,14 @@ export default function AboutPage() {
                 <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
                   LEARNING METHODOLOGY
                 </div>
-                <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
-                  Blended learning that turns knowledge into competency
-                </h2>
+                <BlurText
+                  as="h2"
+                  text="Blended learning that turns knowledge into competency"
+                  delay={110}
+                  animateBy="words"
+                  direction="top"
+                  className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl"
+                />
                 <p className="mt-4 text-base leading-relaxed text-slate-600">
                   Lumax Academy combines theory, hands-on practice, simulation,
                   projects, and industry exposure so learners can connect
@@ -608,10 +642,14 @@ export default function AboutPage() {
                   <div className="text-sm font-semibold tracking-widest text-(--brand)">
                     READY TO LEARN WITH PURPOSE?
                   </div>
-                  <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
-                    Start building practical skills for the industries of
-                    tomorrow.
-                  </h2>
+                  <BlurText
+                    as="h2"
+                    text="Start building practical skills for the industries of tomorrow."
+                    delay={110}
+                    animateBy="words"
+                    direction="top"
+                    className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl"
+                  />
                   <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/72 sm:text-base">
                     Lumax Academy prepares learners for career success through
                     innovative vocational education, hands-on training, and
