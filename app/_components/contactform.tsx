@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { allCourses } from "../data/coursedata";
 import {
   FiCalendar,
@@ -115,6 +115,8 @@ export default function ContactForm({
     "idle"
   );
   const [error, setError] = useState("");
+  const [courseOpen, setCourseOpen] = useState(false);
+  const courseRef = useRef<HTMLDivElement>(null);
 
   const courses = useMemo(
     () => allCourses.map((c) => ({ id: c.id, title: c.title })),
@@ -122,6 +124,27 @@ export default function ContactForm({
   );
 
   const months = useMemo(() => getUpcomingMonths(), []);
+
+  const selectedCourse = courses.find((c) => c.id === state.courseId);
+
+  // Close the course dropdown on outside click or Escape.
+  useEffect(() => {
+    if (!courseOpen) return;
+    function onDocClick(e: MouseEvent) {
+      if (courseRef.current && !courseRef.current.contains(e.target as Node)) {
+        setCourseOpen(false);
+      }
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setCourseOpen(false);
+    }
+    document.addEventListener("mousedown", onDocClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDocClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [courseOpen]);
 
   function onChange<K extends keyof FormState>(key: K, value: FormState[K]) {
     setState((s) => ({ ...s, [key]: value }));
@@ -148,7 +171,6 @@ export default function ContactForm({
       state.phoneCode === "other"
         ? state.phoneCodeOther.trim() || "other"
         : state.phoneCode;
-    const selectedCourse = courses.find((course) => course.id === state.courseId);
 
     setStatus("sending");
     setError("");
@@ -192,6 +214,11 @@ export default function ContactForm({
   const icon = compact
     ? "pointer-events-none grid h-5 w-5 shrink-0 place-items-center rounded-md bg-[#fff7e8] text-[#193764] transition-colors duration-200 group-focus-within/shell:bg-[#faa426] group-focus-within/shell:text-white sm:h-6 sm:w-6"
     : iconBox;
+  // Same look as the input shells, but as a clickable button (pointer cursor)
+  // that top-aligns its contents so a wrapped course name reads cleanly.
+  const courseShell = shell
+    .replace("cursor-text", "cursor-pointer")
+    .replace("items-center", "items-start");
 
   return (
     <div className={compact ? "" : "overflow-hidden rounded-3xl border border-(--border) bg-white shadow-[0_24px_80px_-60px_rgba(2,6,23,0.45)]"}>
@@ -295,28 +322,82 @@ export default function ContactForm({
           </div>
         </div>
 
-        {/* Row 3: Course (full width on mobile, paired on desktop) */}
-        <div>
+        {/* Row 3: Course — custom dropdown so long course names wrap instead of
+            overflowing the form (a native <select> can't wrap its value). */}
+        <div ref={courseRef} className="relative">
           <Label required>Select Course</Label>
-          <div className={shell} onClick={focusField}>
-            <span className={icon}>
+          <button
+            type="button"
+            onClick={() => setCourseOpen((o) => !o)}
+            aria-haspopup="listbox"
+            aria-expanded={courseOpen}
+            className={`${courseShell} w-full text-left`}
+          >
+            <span className={`${icon} mt-0.5`}>
               <FiGlobe className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden />
             </span>
-            <select
-              value={state.courseId}
-              onChange={(e) => onChange("courseId", e.target.value)}
-              required
-              className={`${inputBase} appearance-none truncate`}
+            <span
+              className={`min-w-0 flex-1 text-[13px] font-semibold leading-snug sm:text-sm ${
+                selectedCourse ? "text-slate-800" : "text-slate-400"
+              }`}
             >
-              <option value="">Choose a course</option>
-              {courses.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.title}
-                </option>
-              ))}
-            </select>
-            <FiChevronDown className="h-3.5 w-3.5 shrink-0 text-slate-400 sm:h-4 sm:w-4" aria-hidden />
-          </div>
+              {selectedCourse ? selectedCourse.title : "Choose a course"}
+            </span>
+            <FiChevronDown
+              className={`mt-0.5 h-3.5 w-3.5 shrink-0 text-slate-400 transition-transform duration-200 sm:h-4 sm:w-4 ${
+                courseOpen ? "rotate-180" : ""
+              }`}
+              aria-hidden
+            />
+          </button>
+
+          {courseOpen && (
+            <ul
+              role="listbox"
+              aria-label="Select course"
+              className="absolute inset-x-0 top-full z-30 mt-1.5 max-h-60 overflow-auto rounded-xl border border-(--border) bg-white p-1 shadow-lg shadow-black/10"
+            >
+              {courses.map((c) => {
+                const isSel = c.id === state.courseId;
+                return (
+                  <li key={c.id} role="option" aria-selected={isSel}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onChange("courseId", c.id);
+                        setCourseOpen(false);
+                      }}
+                      className={`flex w-full items-start gap-2 rounded-lg px-2.5 py-2 text-left text-[13px] font-semibold leading-snug transition-colors sm:text-sm ${
+                        isSel
+                          ? "bg-[#faa426]/10 text-[#193764]"
+                          : "text-slate-700 hover:bg-[#fff7e8]"
+                      }`}
+                    >
+                      <span className="min-w-0 flex-1">{c.title}</span>
+                      {isSel && (
+                        <FiCheck
+                          className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#faa426] sm:h-4 sm:w-4"
+                          aria-hidden
+                        />
+                      )}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+
+          {/* Keep native required-field validation on submit. */}
+          {!state.courseId && (
+            <input
+              tabIndex={-1}
+              required
+              value=""
+              onChange={() => {}}
+              className="h-0 w-0 opacity-0"
+              aria-hidden
+            />
+          )}
         </div>
 
         {/* Row 4: Nationality */}
@@ -426,11 +507,19 @@ export default function ContactForm({
         </div>
 
         {/* Submit */}
-        <div className="flex flex-col gap-2 pt-0.5 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:pt-1">
+        <div
+          className={
+            compact
+              ? "flex flex-col gap-2 pt-0.5"
+              : "flex flex-col gap-2 pt-0.5 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:pt-1"
+          }
+        >
           <button
             type="submit"
             disabled={status === "sending" || status === "sent"}
-            className="group inline-flex h-9 w-full items-center justify-center gap-2 rounded-lg bg-[#faa426] px-4 text-[13px] font-extrabold text-[#193764] shadow-lg shadow-[#faa426]/25 transition-all duration-200 hover:shadow-xl hover:shadow-[#faa426]/30 hover:brightness-105 disabled:opacity-70 disabled:shadow-none sm:h-11 sm:w-auto sm:rounded-xl sm:px-6 sm:text-sm"
+            className={`group inline-flex h-9 w-full items-center justify-center gap-2 rounded-lg bg-[#faa426] px-4 text-[13px] font-extrabold text-[#193764] shadow-lg shadow-[#faa426]/25 transition-all duration-200 hover:shadow-xl hover:shadow-[#faa426]/30 hover:brightness-105 disabled:opacity-70 disabled:shadow-none sm:h-11 sm:rounded-xl sm:px-6 sm:text-sm ${
+              compact ? "" : "sm:w-auto"
+            }`}
           >
             {(status === "idle" || status === "error") && (
               <>
@@ -453,18 +542,18 @@ export default function ContactForm({
           </button>
 
           {status === "error" ? (
-            <div className="animate-in fade-in-0 slide-in-from-bottom-2 rounded-lg bg-red-50 px-3 py-2 text-[12px] font-semibold text-red-700 ring-1 ring-red-200 sm:rounded-2xl sm:px-4 sm:py-3 sm:text-sm">
+            <div className="w-full animate-in fade-in-0 slide-in-from-bottom-2 rounded-lg bg-red-50 px-3 py-2 text-[12px] font-semibold text-red-700 ring-1 ring-red-200 sm:w-auto sm:rounded-2xl sm:px-4 sm:py-3 sm:text-sm">
               {error || "Unable to submit your enquiry right now."}
             </div>
           ) : status === "sent" ? (
-            <div className="animate-in fade-in-0 slide-in-from-bottom-2 rounded-lg bg-emerald-50 px-3 py-2 text-[12px] font-semibold text-emerald-700 ring-1 ring-emerald-200 sm:rounded-2xl sm:px-4 sm:py-3 sm:text-sm">
+            <div className="w-full animate-in fade-in-0 slide-in-from-bottom-2 rounded-lg bg-emerald-50 px-3 py-2 text-[12px] font-semibold text-emerald-700 ring-1 ring-emerald-200 sm:w-auto sm:rounded-2xl sm:px-4 sm:py-3 sm:text-sm">
               Thanks! We&apos;ll get back to you within 24 hours.
             </div>
-          ) : (
-            <div className="hidden text-xs font-semibold text-slate-400 sm:block">
+          ) : !compact ? (
+            <div className="hidden min-w-0 text-xs font-semibold text-slate-400 sm:block">
               By submitting, you agree we may contact you about your enquiry.
             </div>
-          )}
+          ) : null}
         </div>
       </form>
     </div>

@@ -9,11 +9,11 @@ type FooterProps = {
 };
 
 export default function SiteFooter({ className }: FooterProps) {
-  const socials: { label: string; icon: IconType }[] = [
-    { label: "Facebook", icon: FaFacebookF },
-    { label: "Instagram", icon: FaInstagram },
-    { label: "TikTok", icon: SiTiktok },
-    { label: "YouTube", icon: SiYoutube },
+  const socials: { label: string; href: string; icon: IconType }[] = [
+    { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61589531251092", icon: FaFacebookF },
+    { label: "Instagram", href: "https://www.instagram.com/lumax.academy/", icon: FaInstagram },
+    { label: "TikTok", href: "https://www.tiktok.com/@lumax.academy4", icon: SiTiktok },
+    { label: "YouTube", href: "https://www.youtube.com/@LumaxAcademy", icon: SiYoutube },
   ];
 
   const companyLinks = [
@@ -176,7 +176,9 @@ export default function SiteFooter({ className }: FooterProps) {
             {socials.map((s) => (
               <a
                 key={s.label}
-                href="#"
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="grid h-9 w-9 place-items-center rounded-full bg-white/10 text-white transition hover:bg-[#faa426] hover:text-[#193764]"
                 aria-label={s.label}
               >

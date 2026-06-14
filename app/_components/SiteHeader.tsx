@@ -60,10 +60,10 @@ export default function SiteHeader() {
 
   const socials = useMemo(
     () => [
-      { label: "Facebook", href: "#", icon: FaFacebookF },
-      { label: "Instagram", href: "#", icon: FaInstagram },
-      { label: "TikTok", href: "#", icon: SiTiktok },
-      { label: "YouTube", href: "#", icon: SiYoutube },
+      { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61589531251092", icon: FaFacebookF },
+      { label: "Instagram", href: "https://www.instagram.com/lumax.academy/", icon: FaInstagram },
+      { label: "TikTok", href: "https://www.tiktok.com/@lumax.academy4", icon: SiTiktok },
+      { label: "YouTube", href: "https://www.youtube.com/@LumaxAcademy", icon: SiYoutube },
     ],
     []
   );
@@ -95,6 +95,8 @@ export default function SiteHeader() {
                 <a
                   key={s.label}
                   href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="grid h-7 w-7 place-items-center rounded-full bg-white text-slate-700 shadow-sm ring-1 ring-black/5 hover:text-(--brand)"
                   aria-label={s.label}
                 >
@@ -284,6 +286,8 @@ export default function SiteHeader() {
                   <a
                     key={s.label}
                     href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="grid h-8 w-8 place-items-center rounded-full bg-white text-slate-600 ring-1 ring-black/5"
                     aria-label={s.label}
                   >

@@ -245,15 +245,15 @@ export default function Home() {
                   key={course.id}
                   className="group flex flex-col overflow-hidden rounded-3xl border border-(--border) bg-white shadow-[0_18px_70px_-65px_rgba(2,6,23,0.55)] transition hover:-translate-y-0.5 hover:shadow-[0_30px_90px_-70px_rgba(2,6,23,0.6)]"
                 >
-                  <div className="relative h-48 overflow-hidden">
+                  <div className="relative h-56 overflow-hidden bg-slate-100">
                     <Image
                       alt={course.title}
                       src={course.image}
                       fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                      className="h-full w-full object-contain transition duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-linear-to-t from-[#193764]/75 via-[#193764]/10 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-[#193764]/60 via-transparent to-transparent" />
                     <span className="absolute bottom-4 left-4 rounded-xl bg-white/90 px-3 py-1.5 text-xs font-bold text-[#193764] backdrop-blur-sm">
                       {course.hours}
                     </span>
@@ -364,7 +364,7 @@ export default function Home() {
           />
 
           {/* Sheet / card */}
-          <div className="relative flex w-full flex-col rounded-t-2xl bg-white shadow-[0_-8px_40px_rgba(2,6,23,0.18)] sm:max-w-md sm:rounded-3xl sm:shadow-[0_30px_80px_-30px_rgba(2,6,23,0.5)]">
+          <div className="relative flex max-h-[92vh] w-full flex-col overflow-hidden rounded-t-2xl bg-white shadow-[0_-8px_40px_rgba(2,6,23,0.18)] sm:max-h-[88vh] sm:max-w-lg sm:rounded-3xl sm:shadow-[0_30px_80px_-30px_rgba(2,6,23,0.5)]">
             {/* Drag handle (mobile only) */}
             <div className="mx-auto mt-2 h-1 w-8 rounded-full bg-slate-200 sm:mt-3 sm:w-10 sm:hidden" />
 

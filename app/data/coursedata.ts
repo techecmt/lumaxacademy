@@ -10,110 +10,31 @@ export type Course = {
 
 export const courses: Course[] = [
   {
-    id: "physiotherapy-support-skills",
-    title: "Advanced Certificate in Physiotherapy Support Skills",
+    id: "advanced-certificate-in-nursing-aide",
+    title: "Advanced Certificate in Nursing Aide",
     image:
-      "/course_featureimage/Advanced Certificate in Physiotherapy Support Skills.jpg",
+      "/course_featureimage/Advanced Certificate in Nursing Aide.png",
     targetAudience: [
+      "healthcare support professionals",
       "Caregivers",
-      "Therapy assistants",
-      "Fitness trainers",
       "Healthcare support staff",
     ],
-    moduleCount: 9,
+    moduleCount: 3,
     hours: "36 Hours",
     featured: true,
   },
   {
-    id: "wound-care-support-management",
-    title: "Advanced Certificate in Wound Care Support & Management",
+    id: "advanced-certificate-in-professional-caregiving",
+    title: "Advanced Certificate in Professional Caregiving (Elderly, Autism & Child Care)",
     image:
-      "/course_featureimage/Advanced Certificate in Wound Care Support & Management.jpg",
+      "/course_featureimage/Advanced Certificate in Professional Caregiving.png",
     targetAudience: [
+      "healthcare support professionals",
       "Caregivers",
-      "Nursing aides",
-      "Home care assistants",
-      "Domestic helpers",
+      "Healthcare support staff",
     ],
-    moduleCount: 7,
+    moduleCount: 3,
     hours: "36 Hours",
-    featured: true,
-  },
-  {
-    id: "professional-nanny-childcare-management",
-    title: "Advanced Certificate in Professional Nanny & Childcare Management",
-    image:
-      "/course_featureimage/Advanced Certificate in Professional Nanny & Childcare Management.jpg",
-    targetAudience: [
-      "Aspiring nannies",
-      "Domestic helpers",
-      "Childcare assistants",
-    ],
-    moduleCount: 6,
-    hours: "12-18 Hours",
-    featured: true,
-  },
-  {
-    id: "autism-caregiving-behaviour-support",
-    title: "Advanced Certificate in Autism Caregiving & Behaviour Support",
-    image:
-      "/course_featureimage/Advanced Certificate in Autism Caregiving & Behaviour Support.jpg",
-    targetAudience: [
-      "Caregivers",
-      "Nannies",
-      "Parents",
-      "Domestic helpers",
-      "Childcare assistants",
-    ],
-    moduleCount: 7,
-    hours: "36 Hours",
-    featured: true,
-  },
-  {
-    id: "occupational-therapy-assistant-skills",
-    title: "Advanced Certificate in Occupational Therapy Assistant Skills",
-    image:
-      "/course_featureimage/Advanced Certificate in Occupational Therapy Assistant Skills.jpg",
-    targetAudience: [
-      "Caregivers",
-      "Therapy aides",
-      "Domestic helpers",
-      "Family caregivers",
-    ],
-    moduleCount: 8,
-    hours: "36 Hours",
-    featured: true,
-  },
-  {
-    id: "speech-therapy-assistant-skills",
-    title: "Advanced Certificate in Speech Therapy Assistant Skills",
-    image:
-      "/course_featureimage/Advanced Certificate in Speech Therapy Assistant Skills.jpg",
-    targetAudience: [
-      "Caregivers",
-      "Nannies",
-      "Therapy aides",
-      "Parents",
-      "Special needs support staff",
-    ],
-    moduleCount: 8,
-    hours: "36 Hours",
-    featured: true,
-  },
-  {
-    id: "behavioural-therapy-assistant-skills",
-    title: "Advanced Certificate in Behavioural Therapy Assistant Skills",
-    image:
-      "/course_featureimage/Advanced Certificate in Behavioural Therapy Assistant Skills.jpg",
-    targetAudience: [
-      "Caregivers",
-      "Nannies",
-      "Teaching assistants",
-      "Parents",
-      "Special needs support staff",
-    ],
-    moduleCount: 8,
-    hours: "24-36 Hours",
     featured: true,
   },
   {
