@@ -62,8 +62,8 @@ export const courses: Course[] = [
       "Coffee shop crew",
       "Food and beverage beginners",
     ],
-    moduleCount: 9,
-    hours: "24 Hours",
+    moduleCount: 3,
+    hours: "36 Hours",
     featured: true,
   },
 ];
