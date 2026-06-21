@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { FaStar } from "react-icons/fa";
 import BlurText from "./_components/BlurText";
 import SiteFooter from "./_components/SiteFooter";
 import SiteHeader from "./_components/SiteHeader";
@@ -11,9 +12,7 @@ import { featuredCourses } from "./data/coursedata";
 import type { IconType } from "react-icons";
 import {
   FiArrowRight,
-  FiBarChart2,
   FiCheck,
-  FiCpu,
   FiHeart,
   FiLayers,
   FiPlay,
@@ -22,10 +21,23 @@ import {
   FiHeadphones,
 } from "react-icons/fi";
 
+type WebsiteReview = {
+  id: string;
+  name: string;
+  overallRating: number;
+  trainingRating: number;
+  trainerRating: number;
+  description: string;
+  createdAt: string;
+};
+
 export default function Home() {
   const [selectedCourse, setSelectedCourse] = useState<
     (typeof featuredCourses)[number] | null
   >(null);
+  const [reviews, setReviews] = useState<WebsiteReview[]>([]);
+  const [reviewsLoading, setReviewsLoading] = useState(true);
+  const stars = [1, 2, 3, 4, 5];
 
   useEffect(() => {
     if (!selectedCourse) return;
@@ -42,6 +54,31 @@ export default function Home() {
       window.removeEventListener("keydown", onKeyDown);
     };
   }, [selectedCourse]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadReviews = async () => {
+      try {
+        const response = await fetch("/api/reviews?limit=6");
+        const data = (await response.json()) as { reviews?: WebsiteReview[] };
+
+        if (!cancelled && response.ok) {
+          setReviews(data.reviews ?? []);
+        }
+      } catch {
+        if (!cancelled) setReviews([]);
+      } finally {
+        if (!cancelled) setReviewsLoading(false);
+      }
+    };
+
+    void loadReviews();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-white text-slate-900">
@@ -302,6 +339,86 @@ export default function Home() {
             </div>
           </div>
         </section>     
+
+        {/* Reviews */}
+        <section id="reviews" className="bg-(--surface-2) py-16 sm:py-20">
+          <div className="mx-auto max-w-7xl px-4">
+            <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+              <div>
+                <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
+                  STUDENT REVIEWS
+                </div>
+                <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+                  What our students say
+                </h2>
+              </div>
+              <a
+                href="/reviews-collection"
+                className="inline-flex items-center justify-center rounded-xl bg-[#193764] px-4 py-2.5 text-sm font-semibold text-white hover:brightness-110"
+              >
+                Leave a review <FiArrowRight className="ml-2 h-4 w-4" aria-hidden />
+              </a>
+            </div>
+
+            {reviewsLoading ? (
+              <div className="mt-8 rounded-2xl border border-(--border) bg-white p-5 text-sm font-medium text-slate-600">
+                Loading latest student reviews...
+              </div>
+            ) : null}
+
+            {!reviewsLoading && reviews.length === 0 ? (
+              <div className="mt-8 rounded-2xl border border-(--border) bg-white p-5 text-sm font-medium text-slate-600">
+                No reviews yet. Be the first student to share your feedback.
+              </div>
+            ) : null}
+
+            {reviews.length > 0 ? (
+              <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                {reviews.map((review) => (
+                  <article
+                    key={review.id}
+                    className="rounded-2xl border border-(--border) bg-white p-5 shadow-[0_18px_55px_-50px_rgba(2,6,23,0.55)]"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="text-base font-bold text-[#193764]">{review.name}</h3>
+                      <span className="rounded-lg bg-[#fff7e8] px-2.5 py-1 text-xs font-bold text-[#193764]">
+                        Overall: {review.overallRating}/5
+                      </span>
+                    </div>
+
+                    <div className="mt-2 flex items-center gap-1">
+                      {stars.map((star) => (
+                        <FaStar
+                          key={star}
+                          className={[
+                            "h-3.5 w-3.5",
+                            star <= review.overallRating
+                              ? "text-amber-400"
+                              : "text-slate-300",
+                          ].join(" ")}
+                          aria-hidden
+                        />
+                      ))}
+                    </div>
+
+                    <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                      {review.description}
+                    </p>
+
+                    <div className="mt-4 grid grid-cols-2 gap-2 text-xs font-semibold text-slate-600">
+                      <div className="rounded-lg bg-(--surface-2) px-2.5 py-2">
+                        Training: {review.trainingRating}/5
+                      </div>
+                      <div className="rounded-lg bg-(--surface-2) px-2.5 py-2">
+                        Trainer: {review.trainerRating}/5
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            ) : null}
+          </div>
+        </section>
 
         {/* Contact */}
         <section id="contact" className="bg-(--surface-2) py-12 sm:py-16 md:py-20">
