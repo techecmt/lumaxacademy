@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { FaStar } from "react-icons/fa";
 import BlurText from "./_components/BlurText";
@@ -13,6 +13,8 @@ import type { IconType } from "react-icons";
 import {
   FiArrowRight,
   FiCheck,
+  FiChevronLeft,
+  FiChevronRight,
   FiHeart,
   FiLayers,
   FiPlay,
@@ -37,6 +39,8 @@ export default function Home() {
   >(null);
   const [reviews, setReviews] = useState<WebsiteReview[]>([]);
   const [reviewsLoading, setReviewsLoading] = useState(true);
+  const [activeReviewIndex, setActiveReviewIndex] = useState(0);
+  const reviewsCarouselRef = useRef<HTMLDivElement | null>(null);
   const stars = [1, 2, 3, 4, 5];
 
   useEffect(() => {
@@ -79,6 +83,52 @@ export default function Home() {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    if (!reviews.length) {
+      setActiveReviewIndex(0);
+      return;
+    }
+    if (activeReviewIndex > reviews.length - 1) {
+      setActiveReviewIndex(reviews.length - 1);
+    }
+  }, [activeReviewIndex, reviews.length]);
+
+  const scrollToReview = (index: number) => {
+    const carousel = reviewsCarouselRef.current;
+    if (!carousel) return;
+
+    const clampedIndex = Math.max(0, Math.min(index, reviews.length - 1));
+    const nextCard = carousel.querySelector<HTMLElement>(
+      `[data-review-index="${clampedIndex}"]`
+    );
+
+    if (nextCard) {
+      nextCard.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+      setActiveReviewIndex(clampedIndex);
+    }
+  };
+
+  const handleReviewsScroll = () => {
+    const carousel = reviewsCarouselRef.current;
+    if (!carousel) return;
+
+    const cards = Array.from(carousel.children) as HTMLElement[];
+    if (!cards.length) return;
+
+    let nearestIndex = 0;
+    let nearestDistance = Number.POSITIVE_INFINITY;
+
+    cards.forEach((card, index) => {
+      const distance = Math.abs(card.offsetLeft - carousel.scrollLeft);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestIndex = index;
+      }
+    });
+
+    setActiveReviewIndex(nearestIndex);
+  };
 
   return (
     <div className="min-h-screen bg-white text-slate-900">
@@ -373,11 +423,56 @@ export default function Home() {
             ) : null}
 
             {reviews.length > 0 ? (
-              <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-                {reviews.map((review) => (
+              <>
+                <div className="mt-6 flex items-center justify-between md:hidden">
+                  <button
+                    type="button"
+                    onClick={() => scrollToReview(activeReviewIndex - 1)}
+                    disabled={activeReviewIndex <= 0}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-(--border) bg-white text-slate-700 disabled:opacity-40"
+                    aria-label="Previous review"
+                  >
+                    <FiChevronLeft className="h-5 w-5" aria-hidden />
+                  </button>
+
+                  <div className="flex items-center gap-2">
+                    {reviews.map((review, index) => (
+                      <button
+                        key={`dot-${review.id}`}
+                        type="button"
+                        onClick={() => scrollToReview(index)}
+                        className={[
+                          "h-2.5 w-2.5 rounded-full transition",
+                          index === activeReviewIndex
+                            ? "bg-(--brand)"
+                            : "bg-slate-300 hover:bg-slate-400",
+                        ].join(" ")}
+                        aria-label={`Go to review ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => scrollToReview(activeReviewIndex + 1)}
+                    disabled={activeReviewIndex >= reviews.length - 1}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-(--border) bg-white text-slate-700 disabled:opacity-40"
+                    aria-label="Next review"
+                  >
+                    <FiChevronRight className="h-5 w-5" aria-hidden />
+                  </button>
+                </div>
+
+                <div
+                  ref={reviewsCarouselRef}
+                  onScroll={handleReviewsScroll}
+                  className="mt-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-2 md:mt-8 md:grid md:snap-none md:overflow-visible md:px-0 md:pb-0 md:grid-cols-2 md:gap-5 lg:grid-cols-3"
+                >
+                {reviews.map((review, index) => (
                   <article
                     key={review.id}
-                    className="rounded-2xl border border-(--border) bg-white p-5 shadow-[0_18px_55px_-50px_rgba(2,6,23,0.55)]"
+                    data-review-index={index}
+                    className="w-[86%] shrink-0 snap-start rounded-2xl border border-(--border) bg-white p-5 shadow-[0_18px_55px_-50px_rgba(2,6,23,0.55)] sm:w-[70%] md:w-auto md:shrink md:snap-none"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <h3 className="text-base font-bold text-[#193764]">{review.name}</h3>
@@ -415,7 +510,8 @@ export default function Home() {
                     </div>
                   </article>
                 ))}
-              </div>
+                </div>
+              </>
             ) : null}
           </div>
         </section>
