@@ -53,31 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: absoluteUrl("/our-teachers"),
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: absoluteUrl("/classroom-facilities"),
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
       url: absoluteUrl("/student-affairs"),
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: absoluteUrl("/essential-resources-and-support-for-students"),
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: absoluteUrl("/fee-protection-scheme"),
       lastModified,
       changeFrequency: "monthly",
       priority: 0.5,

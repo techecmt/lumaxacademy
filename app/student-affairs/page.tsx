@@ -82,7 +82,6 @@ export default function StudentAffairsPage() {
             </div>
             <div className="mt-5 space-y-3">
               {[
-                { label: "Fee Protection Scheme", href: "/fee-protection-scheme" },
                 { label: "Explore courses", href: "/courses" },
                 { label: "Contact us", href: "/contact" },
                 { label: "About Lumax Academy", href: "/about" },

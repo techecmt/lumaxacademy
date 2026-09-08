@@ -6,11 +6,10 @@ import { motion } from "motion/react";
 import BlurText from "../_components/BlurText";
 import SiteFooter from "../_components/SiteFooter";
 import SiteHeader from "../_components/SiteHeader";
-import TeamTabs from "../_components/TeamTabs";
-import { boards, teamGroups } from "../data/governance";
 import type { IconType } from "react-icons";
 import {
   FiActivity,
+  FiArrowRight,
   FiAward,
   FiBookOpen,
   FiBriefcase,
@@ -18,42 +17,18 @@ import {
   FiCheckCircle,
   FiCoffee,
   FiCpu,
+  FiGlobe,
   FiHeart,
   FiHome,
-  FiImage,
   FiLayers,
   FiMonitor,
   FiSettings,
-  FiShield,
   FiTarget,
   FiTool,
   FiTrendingUp,
-  FiUser,
   FiUsers,
+  FiZap,
 } from "react-icons/fi";
-
-/**
- * Organisation chart artwork. Drop the file into /public (e.g.
- * /public/org-chart.png), then set `src` to its path and `width`/`height` to
- * the image's real pixel dimensions. While `src` is null the section renders a
- * "coming soon" placeholder instead of a broken image.
- */
-const ORG_CHART: {
-  src: string | null;
-  alt: string;
-  width: number;
-  height: number;
-} = {
-  src: null,
-  alt: "Lumax Academy organisation chart",
-  width: 1600,
-  height: 1000,
-};
-
-const boardIcons: Record<string, IconType> = {
-  "academic-board": FiBookOpen,
-  "examination-board": FiShield,
-};
 
 const sectors: { title: string; icon: IconType }[] = [
   { title: "Healthcare", icon: FiHeart },
@@ -96,17 +71,17 @@ const coreValues = [
 const culturePillars: { title: string; desc: string; icon: IconType }[] = [
   {
     title: "Learn",
-    desc: "Empowering learners with practical knowledge, industry-relevant skills, and lifelong learning opportunities.",
+    desc: "Practical knowledge, industry-relevant skills, and lifelong learning opportunities.",
     icon: FiBookOpen,
   },
   {
     title: "Lead",
-    desc: "Developing confidence, professionalism, innovation, and leadership qualities to thrive in dynamic industries.",
+    desc: "Confidence, professionalism, innovation, and leadership for dynamic industries.",
     icon: FiTrendingUp,
   },
   {
     title: "Succeed",
-    desc: "Preparing learners for career success, employability, and meaningful contributions in the global workforce.",
+    desc: "Career readiness, employability, and meaningful global workforce contribution.",
     icon: FiAward,
   },
 ];
@@ -219,36 +194,110 @@ export default function AboutContent() {
       <SiteHeader />
 
       <main id="main" className="flex-1">
-        <section className="relative overflow-hidden border-b border-(--border) bg-linear-to-b from-[#fff7e8] via-white to-white">
-          <div className="absolute -left-24 -top-16 h-64 w-64 rounded-full bg-(--brand)/20 blur-3xl" />
-          <div className="absolute -right-20 top-4 h-64 w-64 rounded-full bg-(--brand-2)/12 blur-3xl" />
+        <section className="relative overflow-hidden bg-linear-to-b from-[#fff7e8] via-white to-white">
+          <div className="absolute inset-0">
+            <div className="absolute -left-28 top-16 h-72 w-72 rounded-full bg-(--brand)/20 blur-3xl" />
+            <div className="absolute -right-24 top-36 h-80 w-80 rounded-full bg-(--brand-2)/15 blur-3xl" />
+            <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-white to-transparent" />
+          </div>
 
-          <div className="relative mx-auto max-w-7xl px-4 py-10 sm:py-14">
-            <nav aria-label="Breadcrumb">
-              <ol className="flex items-center gap-2 text-xs font-semibold text-slate-500">
-                <li>
-                  <Link href="/" className="hover:text-(--brand)">
-                    Home
-                  </Link>
-                </li>
-                <li aria-hidden>/</li>
-                <li className="text-slate-800">About Us</li>
-              </ol>
-            </nav>
+          <div className="relative mx-auto max-w-7xl px-4 pb-14 pt-10 sm:pb-20 sm:pt-16 lg:pb-24">
+            <div className="grid items-center gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14">
+              <div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-(--border) bg-white/80 px-4 py-2 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur">
+                  <span className="grid h-5 w-5 place-items-center rounded-full bg-(--brand) text-white">
+                    <FiZap className="h-3.5 w-3.5" aria-hidden />
+                  </span>
+                  Singapore-based skill development institute
+                </div>
 
-            <motion.h1
-              initial={{ filter: "blur(12px)", opacity: 0, y: -18 }}
-              animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="mt-4 text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl"
-            >
-              About <span className="text-(--brand)">Lumax Academy</span>
-            </motion.h1>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
-              A Singapore-based skill development institute delivering
-              industry-relevant vocational education, with governance and
-              academic standards you can rely on.
-            </p>
+                <motion.h1
+                  initial={{ filter: "blur(12px)", opacity: 0, y: -24 }}
+                  animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+                  transition={{ duration: 0.75, ease: "easeOut", delay: 0.1 }}
+                  className="mt-5 max-w-3xl text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl lg:text-[62px] lg:leading-[1.03]"
+                >
+                  Future-ready education for{" "}
+                  <span className="text-(--brand)">career success</span>
+                </motion.h1>
+                <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
+                  Founded in 2026, Lumax Academy is a progressive educational
+                  institute in Singapore delivering industry-relevant skill
+                  development and vocational education programmes for learners
+                  preparing for the evolving global workforce.
+                </p>
+
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <a
+                    href="#programmes"
+                    className="inline-flex items-center justify-center rounded-xl bg-(--brand) px-6 py-3 text-sm font-semibold text-white shadow-sm shadow-[#faa426]/25 hover:brightness-110"
+                  >
+                    Explore programme areas
+                    <FiArrowRight className="ml-2 h-4 w-4" aria-hidden />
+                  </a>
+                  <a
+                    href="#methodology"
+                    className="inline-flex items-center justify-center rounded-xl border border-(--border) bg-white px-6 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+                  >
+                    How learning works
+                  </a>
+                </div>
+
+                <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                  {[
+                    { k: "2026", v: "Founded" },
+                    { k: "7", v: "High-demand sectors" },
+                    { k: "2", v: "Delivery modes" },
+                    { k: "100%", v: "Employability focus" },
+                  ].map((s) => (
+                    <div
+                      key={s.v}
+                      className="rounded-2xl border border-(--border) bg-white/80 p-4 shadow-sm backdrop-blur"
+                    >
+                      <div className="text-xl font-extrabold text-slate-950">
+                        {s.k}
+                      </div>
+                      <div className="mt-1 text-xs font-semibold text-slate-600">
+                        {s.v}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="absolute -inset-5 -z-10 rounded-4xl bg-linear-to-br from-(--brand)/20 via-transparent to-(--brand-2)/20 blur-2xl" />
+                <div className="overflow-hidden rounded-4xl border border-white/80 bg-white shadow-[0_24px_90px_-55px_rgba(2,6,23,0.6)]">
+                  <div className="relative h-[320px] sm:h-[420px] lg:h-[500px]">
+                    <Image
+                      alt="Diverse learners collaborating in a modern classroom"
+                      src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1400&q=80"
+                      fill
+                      priority
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-slate-950/70 via-slate-950/10 to-transparent" />
+                    <div className="absolute inset-x-5 bottom-5 rounded-3xl bg-white/92 p-5 shadow-lg ring-1 ring-black/5 backdrop-blur">
+                      <div className="flex items-start gap-3">
+                        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-(--brand) text-white">
+                          <FiGlobe className="h-5 w-5" aria-hidden />
+                        </div>
+                        <div>
+                          <div className="text-sm font-extrabold text-slate-950">
+                            Local and international learners
+                          </div>
+                          <p className="mt-1 text-sm leading-relaxed text-slate-600">
+                            Flexible face-to-face and e-learning pathways built
+                            around practical workplace readiness.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -283,10 +332,8 @@ export default function AboutContent() {
                         Delivery modes
                       </div>
                       <p className="mt-1 text-sm text-slate-600">
-                        With a strong emphasis on applied learning and workforce
-                        integration, we offer both Face-to-Face and E-Learning
-                        delivery modes — accessible, flexible, future-ready
-                        education for local and international learners.
+                        Face-to-Face classroom training and E-Learning for
+                        accessible, flexible, future-ready education.
                       </p>
                     </div>
                   </div>
@@ -422,13 +469,8 @@ export default function AboutContent() {
             </div>
 
             <div>
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
-                  ORGANIZATIONAL CULTURE
-                </div>
-                <span className="rounded-full border border-(--border) bg-white px-3 py-1 text-xs font-semibold text-slate-700">
-                  Learn. Lead. Succeed.
-                </span>
+              <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
+                ORGANIZATIONAL CULTURE
               </div>
               <BlurText
                 as="h2"
@@ -439,8 +481,9 @@ export default function AboutContent() {
                 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl"
               />
               <p className="mt-4 text-base leading-relaxed text-slate-600">
-                At Lumax Academy, we foster a culture of continuous learning,
-                professional leadership, and personal achievement.
+                At Lumax Academy, hands-on education, innovation, and
+                industry-focused training inspire every learner to grow with
+                purpose and contribute with confidence.
               </p>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -461,190 +504,6 @@ export default function AboutContent() {
                   </div>
                 ))}
               </div>
-
-              <div className="mt-6 rounded-3xl border border-(--border) bg-white p-5 sm:p-6">
-                <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
-                  CULTURE STATEMENT
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
-                  Through hands-on education, innovation, and industry-focused
-                  training, we inspire every learner to:
-                </p>
-                <p className="mt-3 text-lg font-extrabold leading-snug text-slate-950 sm:text-xl">
-                  Learn with Purpose. Lead with Confidence. Succeed with
-                  Excellence.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="organisation-chart" className="py-14 sm:py-20">
-          <div className="mx-auto max-w-7xl px-4">
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
-                STRUCTURE
-              </div>
-              <BlurText
-                as="h2"
-                text="Organisation Chart"
-                delay={110}
-                animateBy="words"
-                direction="top"
-                className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl"
-              />
-              <p className="mt-4 text-base leading-relaxed text-slate-600">
-                How responsibility flows across governance, academic delivery,
-                and student support at Lumax Academy.
-              </p>
-            </div>
-
-            <div className="mt-10 overflow-hidden rounded-4xl border border-(--border) bg-white p-4 shadow-[0_18px_70px_-65px_rgba(2,6,23,0.65)] sm:p-6">
-              {ORG_CHART.src ? (
-                <div className="overflow-x-auto">
-                  <Image
-                    src={ORG_CHART.src}
-                    alt={ORG_CHART.alt}
-                    width={ORG_CHART.width}
-                    height={ORG_CHART.height}
-                    sizes="(min-width: 1280px) 1200px, 100vw"
-                    className="mx-auto h-auto w-full min-w-[640px] rounded-2xl"
-                  />
-                </div>
-              ) : (
-                <div className="grid place-items-center rounded-3xl border border-dashed border-(--border) bg-(--surface-2) px-6 py-16 text-center">
-                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-(--brand) ring-1 ring-black/5">
-                    <FiImage className="h-5 w-5" aria-hidden />
-                  </div>
-                  <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-600">
-                    The organisation chart is being finalised and will be
-                    published here shortly.
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {boards.map((board, boardIndex) => {
-          const BoardIcon = boardIcons[board.id] ?? FiUsers;
-          return (
-            <section
-              key={board.id}
-              id={board.id}
-              className={
-                boardIndex % 2 === 0
-                  ? "bg-(--surface-2) py-14 sm:py-20"
-                  : "py-14 sm:py-20"
-              }
-            >
-              <div className="mx-auto max-w-7xl px-4">
-                <div className="mx-auto max-w-3xl text-center">
-                  <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
-                    {board.label.toUpperCase()}
-                  </div>
-                  <div className="mt-4 flex justify-center">
-                    <div className="grid h-12 w-12 place-items-center rounded-2xl bg-(--brand) text-white">
-                      <BoardIcon className="h-6 w-6" aria-hidden />
-                    </div>
-                  </div>
-                  <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
-                    {board.title}
-                  </h2>
-                  <p className="mt-4 text-base leading-relaxed text-slate-600">
-                    {board.intro}
-                  </p>
-                </div>
-
-                <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                  {board.members.map((member) => (
-                    <div
-                      key={`${board.id}-${member.name}`}
-                      className="rounded-3xl border border-(--border) bg-white p-6 text-center shadow-[0_18px_70px_-65px_rgba(2,6,23,0.65)]"
-                    >
-                      <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-(--surface-2) text-(--brand) ring-1 ring-black/5">
-                        <FiUser className="h-7 w-7" aria-hidden />
-                      </div>
-                      <h3 className="mt-4 text-base font-extrabold text-slate-950">
-                        {member.name}
-                      </h3>
-                      <p className="mt-3 text-sm font-semibold text-slate-700">
-                        {member.qualification}
-                      </p>
-                      <p className="mt-1 text-sm text-slate-500">
-                        {member.institution}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-8 rounded-4xl border border-(--border) bg-white p-6 sm:p-8">
-                  <h3 className="text-lg font-extrabold text-slate-950 sm:text-xl">
-                    {board.responsibilitiesTitle}
-                  </h3>
-                  {board.responsibilitiesIntro ? (
-                    <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
-                      {board.responsibilitiesIntro}
-                    </p>
-                  ) : null}
-                  <ol className="mt-5 space-y-4">
-                    {board.responsibilities.map((item, i) => (
-                      <li key={item.text} className="flex items-start gap-3">
-                        <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-(--brand)/12 text-xs font-extrabold text-(--brand)">
-                          {i + 1}
-                        </span>
-                        <div>
-                          <p className="text-sm leading-relaxed text-slate-600">
-                            {item.text}
-                          </p>
-                          {item.subItems ? (
-                            <ul className="mt-3 space-y-2 border-l-2 border-(--border) pl-4">
-                              {item.subItems.map((sub) => (
-                                <li
-                                  key={sub}
-                                  className="flex items-start gap-2 text-sm leading-relaxed text-slate-600"
-                                >
-                                  <FiCheck
-                                    className="mt-1 h-4 w-4 shrink-0 text-(--brand)"
-                                    aria-hidden
-                                  />
-                                  <span>{sub}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          ) : null}
-                        </div>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </section>
-          );
-        })}
-
-        <section id="our-team" className="bg-slate-50 py-14 sm:py-20">
-          <div className="mx-auto max-w-7xl px-4">
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
-                OUR PEOPLE
-              </div>
-              <BlurText
-                as="h2"
-                text="Meet Our Team"
-                delay={110}
-                animateBy="words"
-                direction="top"
-                className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl"
-              />
-              <p className="mt-4 text-base leading-relaxed text-slate-600">
-                The people behind governance, academic quality, student support,
-                and campus operations at Lumax Academy.
-              </p>
-            </div>
-
-            <div className="mt-10">
-              <TeamTabs groups={teamGroups} />
             </div>
           </div>
         </section>

@@ -11,7 +11,6 @@ import SiteHeader from "./_components/SiteHeader";
 import CampusHours from "./_components/CampusHours";
 import ContactForm from "./_components/contactform";
 import { featuredCourses } from "./data/coursedata";
-import { featuredDiplomaCourses } from "./data/diplomacoursedata";
 import type { IconType } from "react-icons";
 import {
   FiArrowRight,
@@ -386,124 +385,7 @@ export default function HomeContent() {
               ))}
             </div>
           </div>
-        </section>
-
-        {/* Diploma courses */}
-        <section
-          id="diploma-courses"
-          className="bg-(--surface-2) py-16 sm:py-20"
-        >
-          <div className="mx-auto max-w-7xl px-4">
-            <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-              <div>
-                <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
-                  DIPLOMA PROGRAMMES
-                </div>
-                <BlurText
-                  as="h2"
-                  text="Diploma courses in Singapore"
-                  delay={110}
-                  animateBy="words"
-                  direction="top"
-                  className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
-                />
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
-                  Part-time diplomas built for working learners and career
-                  switchers who want to go deeper than a certificate.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-10 space-y-6">
-              {featuredDiplomaCourses.map((course) => (
-                <article
-                  key={course.id}
-                  className="group grid overflow-hidden rounded-3xl border border-(--border) bg-white shadow-[0_18px_70px_-65px_rgba(2,6,23,0.55)] transition hover:shadow-[0_30px_90px_-70px_rgba(2,6,23,0.6)] lg:grid-cols-[minmax(0,380px)_1fr]"
-                >
-                  <div className="relative h-56 overflow-hidden bg-slate-100 lg:h-full lg:min-h-[280px]">
-                    <Image
-                      alt={course.title}
-                      src={course.image}
-                      fill
-                      sizes="(min-width: 1024px) 380px, 100vw"
-                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-[#193764]/60 via-transparent to-transparent" />
-                    <span className="absolute bottom-4 left-4 rounded-xl bg-white/90 px-3 py-1.5 text-xs font-bold text-[#193764] backdrop-blur-sm">
-                      {course.studyMode}
-                    </span>
-                  </div>
-
-                  <div className="flex flex-1 flex-col p-6 sm:p-7">
-                    <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-(--brand)/12 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-(--brand)">
-                      <FiLayers className="h-3.5 w-3.5" aria-hidden />
-                      Diploma
-                    </span>
-
-                    <h3 className="mt-3 text-xl font-bold leading-snug text-slate-900 group-hover:text-(--brand) sm:text-2xl">
-                      <Link href={`/diploma-courses/${course.id}`}>
-                        {course.title}
-                      </Link>
-                    </h3>
-
-                    <div className="mt-4 flex flex-wrap gap-2 text-xs font-semibold text-slate-600">
-                      <span className="rounded-full bg-(--surface-2) px-3 py-1">
-                        {course.moduleCount} modules
-                      </span>
-                      <span className="rounded-full bg-(--surface-2) px-3 py-1">
-                        {course.hours}
-                      </span>
-                      <span className="rounded-full bg-(--surface-2) px-3 py-1">
-                        {course.duration}
-                      </span>
-                      <span className="rounded-full bg-(--surface-2) px-3 py-1">
-                        {course.studyMode}
-                      </span>
-                    </div>
-
-                    <div className="mt-5 border-t border-(--border) pt-4">
-                      <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                        Who is this for
-                      </div>
-                      <ul className="mt-2 grid gap-1 sm:grid-cols-2">
-                        {course.targetAudience.map((t) => (
-                          <li
-                            key={t}
-                            className="flex items-start gap-2 text-xs text-slate-600"
-                          >
-                            <FiCheck
-                              className="mt-0.5 h-3 w-3 shrink-0 text-(--brand)"
-                              aria-hidden
-                            />
-                            {t}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="mt-auto flex flex-wrap items-center gap-4 pt-6">
-                      <Link
-                        href={`/diploma-courses/${course.id}`}
-                        className="inline-flex items-center rounded-xl bg-(--brand) px-4 py-2.5 text-xs font-semibold text-white hover:brightness-110"
-                      >
-                        View diploma
-                        <FiArrowRight className="ml-1.5 h-3.5 w-3.5" aria-hidden />
-                      </Link>
-                      <button
-                        type="button"
-                        onClick={() => setSelectedCourse(course)}
-                        className="inline-flex items-center text-xs font-semibold text-(--brand) hover:underline"
-                      >
-                        Get course details
-                        <FiArrowRight className="ml-1 h-3.5 w-3.5" aria-hidden />
-                      </button>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        </section>     
 
         {/* Reviews */}
         <section id="reviews" className="bg-(--surface-2) py-16 sm:py-20">
