@@ -57,7 +57,7 @@ export const departments: Department[] = [
       {
         name: "Mr. Mustafa",
         numbers: [
-          { display: "+971 55 596 0806", href: "https://wa.me/971555960806" },
+          { display: "+65 8972 7585", href: "https://wa.me/6589727585" },
           { display: "+65 8220 0095", href: "https://wa.me/6582200095" },
         ],
       },
