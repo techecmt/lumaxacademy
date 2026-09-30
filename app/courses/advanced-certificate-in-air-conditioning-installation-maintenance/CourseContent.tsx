@@ -76,7 +76,7 @@ const modules: {
   {
     no: "01",
     title: "Air-Conditioning Installation & Commissioning",
-    duration: "8 Hours",
+    duration: "12 Hours",
     assessment: "Theory + Practical",
     coverage: [
       "Introduction to HVAC systems",
@@ -103,7 +103,7 @@ const modules: {
   {
     no: "02",
     title: "Air-Conditioning Maintenance & Servicing",
-    duration: "8 Hours",
+    duration: "12 Hours",
     assessment: "Theory + Practical",
     coverage: [
       "Preventive maintenance schedules",
@@ -128,7 +128,7 @@ const modules: {
   {
     no: "03",
     title: "HVAC Troubleshooting & Commercial Systems",
-    duration: "8 Hours",
+    duration: "12 Hours",
     assessment: "Practical Competency Assessment",
     coverage: [
       "Common system faults and poor cooling performance",
@@ -168,12 +168,17 @@ const trainingEquipment: { title: string; icon: IconType }[] = [
 
 const courseFacts: { label: string; value: string; sub?: string; icon: IconType }[] = [
   { label: "Study Mode", value: "Part Time", icon: FiClock },
-  { label: "Course Duration", value: "8 Weeks", icon: FiCalendar },
-  { label: "Total Contact Hours", value: "24 Hours", icon: FiTarget },
+  {
+    label: "Course Duration",
+    value: "3 Months",
+    sub: "12 Weeks",
+    icon: FiCalendar,
+  },
+  { label: "Total Contact Hours", value: "36 Hours", icon: FiTarget },
   {
     label: "Schedule",
     value: "Weekend",
-    sub: "8 Saturdays · 3 Hours / class",
+    sub: "12 Saturdays · 3 Hours / class",
     icon: FiCalendar,
   },
   { label: "Delivery Mode", value: "Face-to-Face", icon: FiMonitor },
@@ -347,7 +352,7 @@ export default function AirConditioningCourseContent() {
                 transition={{ duration: 0.7, ease: "easeOut", delay: 0.25 }}
                 className="mt-5 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg"
               >
-                A 24-hour, hands-on aircon and HVAC course in Singapore covering
+                A 3-month, 36-hour hands-on aircon and HVAC course in Singapore covering
                 installation, commissioning, preventive maintenance, and fault
                 troubleshooting for residential and light commercial systems —
                 built for entry into the HVAC, facilities management, and M&amp;E
@@ -383,10 +388,10 @@ export default function AirConditioningCourseContent() {
                 className="mt-9 grid grid-cols-2 gap-3 sm:grid-cols-4"
               >
                 {[
-                  { k: "8", v: "Weeks" },
-                  { k: "24", v: "Contact Hours" },
+                  { k: "3", v: "Months" },
+                  { k: "12", v: "Weeks" },
+                  { k: "36", v: "Contact Hours" },
                   { k: "3", v: "Modules" },
-                  { k: "60%", v: "Hands-on" },
                 ].map((s) => (
                   <motion.div
                     key={s.v}
@@ -596,14 +601,14 @@ export default function AirConditioningCourseContent() {
               </div>
               <BlurText
                 as="h2"
-                text="Three modules. Twenty-four hours. One HVAC technician."
+                text="Three modules. Thirty-six hours. One HVAC technician."
                 delay={100}
                 animateBy="words"
                 direction="top"
                 className="mt-3 justify-center text-center text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl"
               />
               <p className="mt-4 text-base leading-relaxed text-slate-600">
-                Each module runs for 8 hours and pairs classroom theory with
+                Each module runs for 12 hours and pairs classroom theory with
                 hands-on practical work — building from installation and
                 commissioning through servicing to fault diagnosis on commercial
                 HVAC equipment.
@@ -1098,8 +1103,8 @@ export default function AirConditioningCourseContent() {
 
                 <div className="mt-7 grid gap-3">
                   {[
-                    { icon: FiCalendar, k: "Schedule", v: "Weekend · 8 Saturdays · 3 hrs/class" },
-                    { icon: FiClock, k: "Duration", v: "8 weeks · 24 contact hours" },
+                    { icon: FiCalendar, k: "Schedule", v: "Weekend · 12 Saturdays · 3 hrs/class" },
+                    { icon: FiClock, k: "Duration", v: "3 months · 12 weeks · 36 contact hours" },
                     { icon: FiMonitor, k: "Mode", v: "Face-to-Face · Classroom + Hands-on Practical" },
                     { icon: FiMapPin, k: "Campus", v: "7500A Beach Rd, The Plaza · near Nicoll Highway MRT" },
                   ].map((x) => (

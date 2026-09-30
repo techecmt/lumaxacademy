@@ -78,7 +78,7 @@ export const courses: Course[] = [
       "Career switchers into M&E and building services",
     ],
     moduleCount: 3,
-    hours: "24 Hours",
+    hours: "36 Hours",
     featured: true,
   },
 ];

@@ -189,7 +189,7 @@ export const courseSeoBySlug: Record<string, CourseSeo> = {
     slug: "advanced-certificate-in-air-conditioning-installation-maintenance",
     metaTitle: "Aircon Course in Singapore — HVAC Installation & Servicing",
     metaDescription:
-      "24-hour Advanced Certificate in Air-Conditioning Installation & Maintenance (Residential & Commercial) at Lumax Academy, Beach Road Singapore — near Nicoll Highway & Bugis MRT. Hands-on aircon installation, servicing and HVAC troubleshooting. Weekend classes. Enquire now.",
+      "36-hour, 3-month Advanced Certificate in Air-Conditioning Installation & Maintenance (Residential & Commercial) at Lumax Academy, Beach Road Singapore — near Nicoll Highway & Bugis MRT. Hands-on aircon installation, servicing and HVAC troubleshooting. Weekend classes. Enquire now.",
     keywords: [
       "aircon course Singapore",
       "aircon servicing course Singapore",
@@ -201,11 +201,11 @@ export const courseSeoBySlug: Record<string, CourseSeo> = {
     courseName:
       "Advanced Certificate in Air-Conditioning Installation & Maintenance (Residential & Commercial)",
     courseDescription:
-      "A 24-hour part-time HVAC programme in Singapore combining classroom theory with extensive hands-on practical training in air-conditioning installation, commissioning, preventive maintenance, and fault troubleshooting — preparing learners for technician roles in the HVAC, facilities management, and building services sectors.",
+      "A 36-hour, 3-month part-time HVAC programme in Singapore combining classroom theory with extensive hands-on practical training in air-conditioning installation, commissioning, preventive maintenance, and fault troubleshooting — preparing learners for technician roles in the HVAC, facilities management, and building services sectors.",
     credentialAwarded:
       "Advanced Certificate in Air-Conditioning Installation & Maintenance (Residential & Commercial)",
     priceSGD: 600,
-    timeRequired: "PT24H",
+    timeRequired: "PT36H",
     courseMode: ["Onsite"],
     teaches: [
       "Refrigeration and air-conditioning principles",
