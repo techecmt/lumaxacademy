@@ -94,3 +94,84 @@ html {
     filter: drop-shadow(0 0 14px rgba(250, 164, 38, 0.45));
   }
 }
+
+/* Footer wave divider — layered waves drifting sideways at different speeds.
+   Each SVG is 200% wide and holds two identical wave tiles, so translating it
+   by exactly -50% wraps seamlessly. */
+@keyframes footer-wave-drift-left {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes footer-wave-drift-right {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.footer-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  will-change: transform;
+}
+
+.footer-wave-back {
+  animation: footer-wave-drift-left 44s linear infinite;
+}
+
+.footer-wave-mid {
+  animation: footer-wave-drift-right 34s linear infinite;
+  animation-delay: -7s;
+}
+
+.footer-wave-front {
+  animation: footer-wave-drift-left 26s linear infinite;
+  animation-delay: -3s;
+}
+
+/* Footer ambient orbs — the blurred brand glows, slowly drifting and breathing. */
+@keyframes footer-orb-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-6%, 5%, 0) scale(1.14);
+  }
+}
+
+@keyframes footer-orb-drift-alt {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.1);
+  }
+  50% {
+    transform: translate3d(7%, -6%, 0) scale(1);
+  }
+}
+
+.footer-orb-a {
+  animation: footer-orb-drift 34s ease-in-out infinite;
+}
+
+.footer-orb-b {
+  animation: footer-orb-drift-alt 28s ease-in-out infinite;
+  animation-delay: -9s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-wave,
+  .footer-orb-a,
+  .footer-orb-b {
+    animation: none;
+  }
+}

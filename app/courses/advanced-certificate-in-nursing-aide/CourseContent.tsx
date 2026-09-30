@@ -957,7 +957,7 @@ export default function NursingAideContent() {
         </section>
       </main>
 
-      <SiteFooter />
+      <SiteFooter topTone="cream" />
     </div>
   );
 }

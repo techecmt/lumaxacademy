@@ -1028,7 +1028,7 @@ export default function ProfessionalCaregivingContent() {
         </section>
       </main>
 
-      <SiteFooter />
+      <SiteFooter topTone="cream" />
     </div>
   );
 }

@@ -1129,7 +1129,7 @@ export default function AirConditioningCourseContent() {
         </section>
       </main>
 
-      <SiteFooter />
+      <SiteFooter topTone="cream" />
     </div>
   );
 }

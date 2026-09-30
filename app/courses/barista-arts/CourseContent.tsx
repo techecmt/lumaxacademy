@@ -954,7 +954,7 @@ export default function BaristaArtsContent() {
         </section>
       </main>
 
-      <SiteFooter />
+      <SiteFooter topTone="cream" />
     </div>
   );
 }

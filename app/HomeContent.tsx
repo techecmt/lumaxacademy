@@ -644,7 +644,7 @@ export default function HomeContent() {
           </div>
         </section>
 
-        <SiteFooter />
+        <SiteFooter topTone="cream" />
       </main>
 
       {selectedCourse ? (
